@@ -1,0 +1,72 @@
+edge:
+  subnet: 10.81.1.0/24
+  gateway: 10.81.1.1
+  bridge: vmbr11
+  vlan: null
+  kea:
+    subnet_id: 1
+    reservation_start: 10.81.1.10
+    reservation_end: 10.81.1.199
+    dynamic_pool: null
+  dns:
+    domain: internal.example.invalid
+app:
+  subnet: 10.81.2.0/24
+  gateway: 10.81.2.1
+  bridge: vmbr12
+  vlan: null
+  kea:
+    subnet_id: 2
+    reservation_start: 10.81.2.10
+    reservation_end: 10.81.2.199
+    dynamic_pool: null
+  dns:
+    domain: internal.example.invalid
+db:
+  subnet: 10.81.3.0/24
+  gateway: 10.81.3.1
+  bridge: vmbr13
+  vlan: null
+  kea:
+    subnet_id: 3
+    reservation_start: 10.81.3.10
+    reservation_end: 10.81.3.199
+    dynamic_pool: null
+  dns:
+    domain: internal.example.invalid
+monitoring:
+  subnet: 10.81.4.0/24
+  gateway: 10.81.4.1
+  bridge: vmbr14
+  vlan: null
+  kea:
+    subnet_id: 4
+    reservation_start: 10.81.4.10
+    reservation_end: 10.81.4.199
+    dynamic_pool: null
+  dns:
+    domain: internal.example.invalid
+security:
+  subnet: 10.81.5.0/24
+  gateway: 10.81.5.1
+  bridge: vmbr15
+  vlan: null
+  kea:
+    subnet_id: 5
+    reservation_start: 10.81.5.10
+    reservation_end: 10.81.5.199
+    dynamic_pool: null
+  dns:
+    domain: internal.example.invalid
+game:
+  subnet: 10.81.100.0/24
+  gateway: 10.81.100.1
+  bridge: vmbr110
+  vlan: null
+  kea:
+    subnet_id: 100
+    reservation_start: 10.81.100.10
+    reservation_end: 10.81.100.199
+    dynamic_pool: null
+  dns:
+    domain: internal.example.invalid

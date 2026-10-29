@@ -1,0 +1,82 @@
+groups:
+  - name: neotoybox
+    rules:
+      - alert: HostDown
+        expr: up == 0
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "{{ '{{' }} $labels.instance {{ '}}' }} is unavailable"
+      - alert: RootFilesystemUsageHigh
+        expr: 100 * (1 - node_filesystem_avail_bytes{mountpoint="/",fstype!~"tmpfs|overlay"} / node_filesystem_size_bytes{mountpoint="/",fstype!~"tmpfs|overlay"}) > {{ monitoring_disk_warning_percent }}
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Root filesystem usage is high on {{ '{{' }} $labels.instance {{ '}}' }}"
+      - alert: MemoryUsageHigh
+        expr: 100 * (1 - node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) > {{ monitoring_memory_warning_percent }}
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Memory usage is high on {{ '{{' }} $labels.instance {{ '}}' }}"
+      - alert: PublicEndpointDown
+        expr: probe_success{job="public_https"} == 0
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Public HTTPS probe failed for {{ '{{' }} $labels.instance {{ '}}' }}"
+      - alert: TLSCertificateExpiringSoon
+        expr: probe_success{job="public_https"} == 1 and (probe_ssl_earliest_cert_expiry{job="public_https"} - time()) < 1814400
+        for: 30m
+        labels:
+          severity: warning
+        annotations:
+          summary: "TLS certificate expires within 21 days for {{ '{{' }} $labels.instance {{ '}}' }}"
+      - alert: DailyBackupMetricMissing
+        expr: absent(neotoybox_backup_last_success_timestamp_seconds{service="nextcloud",class="daily"}) or absent(neotoybox_backup_last_success_timestamp_seconds{service="zabbix",class="daily"})
+        for: 36h
+        labels:
+          severity: critical
+        annotations:
+          summary: "A required daily backup success metric has not been observed"
+      - alert: DailyBackupStale
+        expr: time() - neotoybox_backup_last_success_timestamp_seconds{class="daily"} > 129600
+        for: 15m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Daily backup is stale for {{ '{{' }} $labels.service {{ '}}' }}"
+
+      - alert: DataFilesystemUsageHigh
+        expr: 100 * (1 - node_filesystem_avail_bytes{mountpoint=~"/var/lib/prometheus|/var/lib/loki|/var/lib/postgresql|/var/lib/nextcloud-tmp|/var/www/nextcloud/data"} / node_filesystem_size_bytes{mountpoint=~"/var/lib/prometheus|/var/lib/loki|/var/lib/postgresql|/var/lib/nextcloud-tmp|/var/www/nextcloud/data"}) > {{ monitoring_disk_warning_percent }}
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Data filesystem usage is high"
+      - alert: EmailNotificationFailed
+        expr: increase(alertmanager_notifications_failed_total{integration="email"}[10m]) > 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Alertmanager could not deliver email; inspect SMTP and the UI"
+
+      - alert: RootFilesystemUsageCritical
+        expr: 100 * (1 - node_filesystem_avail_bytes{mountpoint="/",fstype!~"tmpfs|overlay"} / node_filesystem_size_bytes{mountpoint="/",fstype!~"tmpfs|overlay"}) > {{ monitoring_disk_critical_percent }}
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Root filesystem usage exceeds the critical threshold"
+      - alert: DataFilesystemUsageCritical
+        expr: 100 * (1 - node_filesystem_avail_bytes{mountpoint=~"/var/lib/prometheus|/var/lib/loki|/var/lib/postgresql|/var/lib/nextcloud-tmp|/var/www/nextcloud/data"} / node_filesystem_size_bytes{mountpoint=~"/var/lib/prometheus|/var/lib/loki|/var/lib/postgresql|/var/lib/nextcloud-tmp|/var/www/nextcloud/data"}) > {{ monitoring_disk_critical_percent }}
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Data filesystem usage exceeds the critical threshold"

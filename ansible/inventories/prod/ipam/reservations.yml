@@ -1,0 +1,81 @@
+prod-rproxy-vm:
+  vmid: 110
+  network: edge
+  mac: 02:72:c8:51:60:4f
+  ipv4: 10.80.1.10
+  dns_enabled: true
+  description: Synthetic rproxy
+  owner: example-team
+  state: present
+prod-nc-lxc:
+  vmid: 210
+  network: app
+  mac: 02:11:b3:d5:f4:92
+  ipv4: 10.80.2.10
+  dns_enabled: true
+  description: Synthetic nc
+  owner: example-team
+  state: present
+prod-imagy-lxc:
+  vmid: 211
+  network: app
+  mac: 02:76:39:a5:d7:f1
+  ipv4: 10.80.2.11
+  dns_enabled: true
+  description: Synthetic imagy
+  owner: example-team
+  state: present
+prod-oods-vm:
+  vmid: 212
+  network: app
+  mac: 02:4f:72:37:99:d4
+  ipv4: 10.80.2.12
+  dns_enabled: true
+  description: Synthetic oods
+  owner: example-team
+  state: present
+prod-ncdb-lxc:
+  vmid: 310
+  network: db
+  mac: 02:65:87:13:c9:2f
+  ipv4: 10.80.3.10
+  dns_enabled: true
+  description: Synthetic ncdb
+  owner: example-team
+  state: present
+prod-valkey-lxc:
+  vmid: 311
+  network: db
+  mac: 02:58:3d:42:8f:9c
+  ipv4: 10.80.3.11
+  dns_enabled: true
+  description: Synthetic valkey
+  owner: example-team
+  state: present
+prod-gls-vm:
+  vmid: 410
+  network: monitoring
+  mac: 02:ae:7e:47:0c:f7
+  ipv4: 10.80.4.10
+  dns_enabled: true
+  description: Synthetic gls
+  owner: example-team
+  state: present
+prod-zabbix-vm:
+  vmid: 411
+  network: monitoring
+  mac: 02:a5:d4:0d:53:6e
+  ipv4: 10.80.4.11
+  dns_enabled: true
+  description: Synthetic zabbix
+  owner: example-team
+  state: present
+prod-ghrunner-vm:
+  vmid: 511
+  network: security
+  mac: 02:b6:f0:fd:d1:15
+  ipv4: 10.80.5.11
+  dns_enabled: true
+  description: Synthetic ghrunner
+  owner: example-team
+  state: present

@@ -1,0 +1,72 @@
+stg-rproxy-vm:
+  vmid: 2110
+  network: edge
+  mac: 02:60:fe:ed:a9:ee
+  ipv4: 10.81.1.10
+  dns_enabled: true
+  description: Synthetic rproxy
+  owner: example-team
+  state: present
+stg-nc-lxc:
+  vmid: 2210
+  network: app
+  mac: 02:df:33:0a:b9:d8
+  ipv4: 10.81.2.10
+  dns_enabled: true
+  description: Synthetic nc
+  owner: example-team
+  state: present
+stg-imagy-lxc:
+  vmid: 2211
+  network: app
+  mac: 02:ec:ce:92:34:8c
+  ipv4: 10.81.2.11
+  dns_enabled: true
+  description: Synthetic imagy
+  owner: example-team
+  state: present
+stg-oods-vm:
+  vmid: 2212
+  network: app
+  mac: 02:96:68:4b:97:73
+  ipv4: 10.81.2.12
+  dns_enabled: true
+  description: Synthetic oods
+  owner: example-team
+  state: present
+stg-ncdb-lxc:
+  vmid: 2310
+  network: db
+  mac: 02:3d:7b:74:93:c5
+  ipv4: 10.81.3.10
+  dns_enabled: true
+  description: Synthetic ncdb
+  owner: example-team
+  state: present
+stg-valkey-lxc:
+  vmid: 2311
+  network: db
+  mac: 02:a3:97:8c:24:d4
+  ipv4: 10.81.3.11
+  dns_enabled: true
+  description: Synthetic valkey
+  owner: example-team
+  state: present
+stg-gls-vm:
+  vmid: 2410
+  network: monitoring
+  mac: 02:83:67:2e:5f:8f
+  ipv4: 10.81.4.10
+  dns_enabled: true
+  description: Synthetic gls
+  owner: example-team
+  state: present
+stg-zabbix-vm:
+  vmid: 2411
+  network: monitoring
+  mac: 02:18:99:7b:7e:ee
+  ipv4: 10.81.4.11
+  dns_enabled: true
+  description: Synthetic zabbix
+  owner: example-team
+  state: present

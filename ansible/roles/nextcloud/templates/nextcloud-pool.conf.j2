@@ -1,0 +1,16 @@
+[nextcloud]
+user = www-data
+group = www-data
+listen = /run/php/php8.4-fpm-nextcloud.sock
+listen.owner = www-data
+listen.group = www-data
+pm = dynamic
+pm.max_children = {{ nextcloud_fpm_max_children }}
+pm.start_servers = {{ nextcloud_fpm_start_servers }}
+pm.min_spare_servers = {{ nextcloud_fpm_min_spare_servers }}
+pm.max_spare_servers = {{ nextcloud_fpm_max_spare_servers }}
+pm.max_requests = {{ nextcloud_fpm_max_requests }}
+catch_workers_output = yes
+clear_env = yes
+php_admin_value[error_log] = /var/log/php8.4-fpm-nextcloud.log
+php_admin_flag[log_errors] = on

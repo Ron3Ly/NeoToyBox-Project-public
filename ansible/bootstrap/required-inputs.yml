@@ -1,0 +1,7 @@
+status: SYNTHETIC_EXAMPLE
+nonprod_runner:
+  name: example-nonprod-runner
+  vmid: null
+  ipv4: null
+  bridge: null
+  production_secrets_allowed: false
