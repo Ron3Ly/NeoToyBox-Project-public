@@ -1,0 +1,78 @@
+stg-rproxy-vm:
+  kind: qemu
+  cores: 2
+  memory_mb: 2048
+  disk_gb: 16
+  onboot_order: 10
+  groups:
+  - caddy_servers
+  os: debian
+stg-nc-lxc:
+  kind: lxc
+  cores: 2
+  memory_mb: 2048
+  disk_gb: 16
+  onboot_order: 10
+  groups:
+  - nextcloud_servers
+  os: debian
+  unprivileged: true
+stg-imagy-lxc:
+  kind: lxc
+  cores: 2
+  memory_mb: 2048
+  disk_gb: 16
+  onboot_order: 10
+  groups:
+  - imaginary_servers
+  os: debian
+  unprivileged: true
+stg-oods-vm:
+  kind: qemu
+  cores: 2
+  memory_mb: 2048
+  disk_gb: 16
+  onboot_order: 10
+  groups:
+  - onlyoffice_servers
+  os: debian
+stg-ncdb-lxc:
+  kind: lxc
+  cores: 2
+  memory_mb: 2048
+  disk_gb: 16
+  onboot_order: 10
+  groups:
+  - mariadb_servers
+  os: debian
+  unprivileged: true
+stg-valkey-lxc:
+  kind: lxc
+  cores: 2
+  memory_mb: 2048
+  disk_gb: 16
+  onboot_order: 10
+  groups:
+  - valkey_servers
+  os: debian
+  unprivileged: true
+stg-gls-vm:
+  kind: qemu
+  cores: 2
+  memory_mb: 2048
+  disk_gb: 16
+  onboot_order: 10
+  groups:
+  - grafana_servers
+  - loki_servers
+  - prometheus_servers
+  os: debian
+stg-zabbix-vm:
+  kind: qemu
+  cores: 2
+  memory_mb: 2048
+  disk_gb: 16
+  onboot_order: 10
+  groups:
+  - zabbix_servers
+  os: debian

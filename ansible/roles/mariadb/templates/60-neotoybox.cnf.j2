@@ -1,0 +1,13 @@
+[server]
+bind-address = {{ ansible_host }}
+port = {{ mariadb_bind_port }}
+character-set-server = utf8mb4
+collation-server = utf8mb4_bin
+transaction-isolation = READ-COMMITTED
+binlog-format = ROW
+skip-name-resolve = 1
+
+[mariadb]
+innodb_file_per_table = 1
+innodb_buffer_pool_size = 3G
+max_connections = 100

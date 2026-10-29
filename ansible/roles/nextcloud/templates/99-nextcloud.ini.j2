@@ -1,0 +1,18 @@
+upload_max_filesize={{ nextcloud_php_upload_max_filesize }}
+post_max_size={{ nextcloud_php_post_max_size }}
+memory_limit={{ nextcloud_php_memory_limit }}
+max_execution_time={{ nextcloud_php_max_execution_time }}
+max_input_time={{ nextcloud_php_max_input_time }}
+upload_tmp_dir={{ nextcloud_temp_path }}
+session.save_handler=redis
+session.save_path="tcp://{{ hostvars[groups['valkey_servers'][0]].ansible_host }}:{{ valkey_bind_port }}?auth={{ secret_valkey_password | urlencode }}"
+redis.session.locking_enabled=1
+redis.session.lock_retries=-1
+redis.session.lock_wait_time=10000
+apc.shm_size={{ nextcloud_apcu_shm_size }}
+opcache.enable=1
+opcache.enable_cli=1
+opcache.interned_strings_buffer=32
+opcache.max_accelerated_files=10000
+opcache.memory_consumption=256
+opcache.save_comments=1

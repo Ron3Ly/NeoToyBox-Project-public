@@ -1,0 +1,5 @@
+environment_name: stg
+synthetic_example: true
+pve_ssh_host: CHANGE_ME
+nextcloud_public_fqdn: stg-cloud.example.invalid
+onlyoffice_public_fqdn: stg-office.example.invalid

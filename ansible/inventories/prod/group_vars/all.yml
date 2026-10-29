@@ -1,0 +1,5 @@
+environment_name: prod
+synthetic_example: true
+pve_ssh_host: CHANGE_ME
+nextcloud_public_fqdn: prod-cloud.example.invalid
+onlyoffice_public_fqdn: prod-office.example.invalid

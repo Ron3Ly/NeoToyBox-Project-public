@@ -1,0 +1,44 @@
+{
+    email {{ smtp_from }}
+    admin 127.0.0.1:2019
+}
+
+{{ nextcloud_public_fqdn }} {
+    encode zstd gzip
+    log {
+        output file /var/log/caddy/nextcloud-access.json {
+            roll_size 100MiB
+            roll_keep 10
+        }
+        format json
+    }
+
+    redir /.well-known/carddav /remote.php/dav/ 301
+    redir /.well-known/caldav /remote.php/dav/ 301
+
+    reverse_proxy {{ hostvars[groups['nextcloud_servers'][0]].ansible_host }}:80 {
+        header_up Host {host}
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-Proto https
+    }
+}
+
+{{ onlyoffice_public_fqdn }} {
+    encode zstd gzip
+    log {
+        output file /var/log/caddy/onlyoffice-access.json {
+            roll_size 100MiB
+            roll_keep 10
+        }
+        format json
+    }
+
+    @blocked path /welcome* /info* /example*
+    respond @blocked 404
+
+    reverse_proxy {{ hostvars[groups['onlyoffice_servers'][0]].ansible_host }}:80 {
+        header_up Host {host}
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-Proto https
+    }
+}

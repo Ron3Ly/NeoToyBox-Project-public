@@ -1,0 +1,4 @@
+opnsense:
+  hostname: OPNsense-prod
+  vmid: 99000
+  reservation_managed: false

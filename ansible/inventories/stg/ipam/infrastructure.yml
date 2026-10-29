@@ -1,0 +1,4 @@
+opnsense:
+  hostname: OPNsense-stg
+  vmid: null
+  reservation_managed: false

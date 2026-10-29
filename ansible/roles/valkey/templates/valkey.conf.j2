@@ -1,0 +1,17 @@
+bind {{ ansible_host }} 127.0.0.1
+protected-mode yes
+port {{ valkey_bind_port }}
+tcp-backlog 511
+timeout 0
+tcp-keepalive 300
+daemonize no
+supervised systemd
+pidfile /run/valkey/valkey-server.pid
+loglevel notice
+logfile /var/log/valkey/valkey-server.log
+databases 16
+save ""
+appendonly no
+requirepass {{ secret_valkey_password }}
+maxmemory {{ valkey_maxmemory }}
+maxmemory-policy noeviction

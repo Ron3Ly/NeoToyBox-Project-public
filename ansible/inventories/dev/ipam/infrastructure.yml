@@ -1,0 +1,4 @@
+opnsense:
+  hostname: OPNsense-dev
+  vmid: null
+  reservation_managed: false

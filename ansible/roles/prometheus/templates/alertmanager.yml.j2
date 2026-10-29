@@ -1,0 +1,27 @@
+{% if monitoring_email_notifications_enabled | bool %}
+global:
+  smtp_smarthost: "{{ smtp_host }}:{{ smtp_port }}"
+  smtp_from: "{{ smtp_from }}"
+  smtp_auth_username: "{{ secret_smtp_user }}"
+  smtp_auth_password: "{{ secret_smtp_password }}"
+  smtp_require_tls: true
+
+route:
+  receiver: email
+  group_by: [alertname, instance]
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 4h
+
+receivers:
+  - name: email
+    email_configs:
+      - to: "{{ alert_email_to }}"
+        send_resolved: true
+{% else %}
+route:
+  receiver: disabled
+
+receivers:
+  - name: disabled
+{% endif %}
