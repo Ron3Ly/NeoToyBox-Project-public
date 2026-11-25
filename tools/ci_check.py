@@ -26,7 +26,7 @@ def main():
             for target in re.findall(r'\]\(([^)]+)\)',p.read_text(encoding='utf-8')):
                 if '://' not in target and not target.startswith('#') and not (p.parent/target.split('#')[0]).exists():
                     raise ValueError(f'broken document link: {p.name}')
-    for environment in ('prod','stg','dev'):
+    for environment in ipam.ENVIRONMENTS:
         directory=root/'ansible/inventories'/environment
         n,h,r=[ipam.load(directory/f) for f in ('ipam/networks.yml','ipam/reservations.yml','guest_resources.yml')]
         ipam.validate(n,h,r,environment)

@@ -9,29 +9,19 @@ prod-rproxy-vm:
   os: debian
 prod-nc-lxc:
   kind: lxc
-  cores: 2
-  memory_mb: 2048
+  cores: 4
+  memory_mb: 8192
   disk_gb: 16
   onboot_order: 10
   groups:
   - nextcloud_servers
   os: debian
   unprivileged: true
-prod-imagy-lxc:
-  kind: lxc
-  cores: 2
-  memory_mb: 2048
-  disk_gb: 16
-  onboot_order: 10
-  groups:
-  - imaginary_servers
-  os: debian
-  unprivileged: true
 prod-oods-vm:
   kind: qemu
-  cores: 2
-  memory_mb: 2048
-  disk_gb: 16
+  cores: 4
+  memory_mb: 6144
+  disk_gb: 64
   onboot_order: 10
   groups:
   - onlyoffice_servers
@@ -39,7 +29,7 @@ prod-oods-vm:
 prod-ncdb-lxc:
   kind: lxc
   cores: 2
-  memory_mb: 2048
+  memory_mb: 8192
   disk_gb: 16
   onboot_order: 10
   groups:
@@ -48,9 +38,9 @@ prod-ncdb-lxc:
   unprivileged: true
 prod-valkey-lxc:
   kind: lxc
-  cores: 2
+  cores: 1
   memory_mb: 2048
-  disk_gb: 16
+  disk_gb: 8
   onboot_order: 10
   groups:
   - valkey_servers
@@ -59,7 +49,7 @@ prod-valkey-lxc:
 prod-gls-vm:
   kind: qemu
   cores: 2
-  memory_mb: 2048
+  memory_mb: 6144
   disk_gb: 16
   onboot_order: 10
   groups:
@@ -70,7 +60,7 @@ prod-gls-vm:
 prod-zabbix-vm:
   kind: qemu
   cores: 2
-  memory_mb: 2048
+  memory_mb: 4096
   disk_gb: 16
   onboot_order: 10
   groups:

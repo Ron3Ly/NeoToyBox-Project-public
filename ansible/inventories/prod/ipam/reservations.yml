@@ -16,15 +16,6 @@ prod-nc-lxc:
   description: Synthetic nc
   owner: example-team
   state: present
-prod-imagy-lxc:
-  vmid: 211
-  network: app
-  mac: 02:76:39:a5:d7:f1
-  ipv4: 10.80.2.11
-  dns_enabled: true
-  description: Synthetic imagy
-  owner: example-team
-  state: present
 prod-oods-vm:
   vmid: 212
   network: app
