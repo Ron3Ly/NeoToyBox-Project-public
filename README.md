@@ -10,6 +10,8 @@ This repository contains reusable validation code, synthetic inventory and selec
 
 Install requirements-ci.txt in a virtual environment and run python tools/ci_check.py. CI runs privacy/hash/allowlist, YAML/Jinja/link, inventory and nonempty unit-test validation. It does not deploy or connect to infrastructure.
 
-Template variables require your own reviewed configuration. The sample network policy uses 10.80/10.81/10.82 exclusively. Do not replace examples with your real values in a public PR.
+Validate changes on a dedicated dev host before promoting the same revision to prod. Dev and prod use the synthetic 10.82 and 10.80 network families respectively. Nextcloud uses its built-in preview providers.
+
+Template variables require your own reviewed configuration. Keep physical host specifications and site-specific configuration in the private deployment inventory.
 
 No software license has been selected by the owner yet. Public visibility does not itself grant an open-source license.

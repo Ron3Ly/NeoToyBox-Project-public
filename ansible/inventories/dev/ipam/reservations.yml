@@ -16,15 +16,6 @@ dev-nc-lxc:
   description: Synthetic nc
   owner: example-team
   state: present
-dev-imagy-lxc:
-  vmid: 3211
-  network: app
-  mac: 02:4a:de:63:46:db
-  ipv4: 10.82.2.11
-  dns_enabled: true
-  description: Synthetic imagy
-  owner: example-team
-  state: present
 dev-oods-vm:
   vmid: 3212
   network: app

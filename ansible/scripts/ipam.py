@@ -37,15 +37,18 @@ def require(condition, message):
         raise ValueError(message)
 
 
+ENVIRONMENTS = ('dev', 'prod')
+
+
 def expected_vmid(ipv4, environment):
     octets = str(ipaddress.IPv4Address(ipv4)).split('.')
     base = octets[2] + octets[3]
-    return int({'prod': '', 'stg': '2', 'dev': '3'}[environment] + base)
+    return int({'prod': '', 'dev': '3'}[environment] + base)
 
 
 def validate(networks, reservations, resources, environment, draft=False):
     warnings = []
-    require(environment in ('dev', 'stg', 'prod'), 'unknown environment')
+    require(environment in ENVIRONMENTS, 'unknown environment')
     if not networks or not reservations:
         require(draft, 'empty IPAM cannot be deployed')
         warnings.append('empty environment: define isolated networks and hosts before deployment')
@@ -58,8 +61,8 @@ def validate(networks, reservations, resources, environment, draft=False):
         require(isinstance(n['dns'], dict) and set(n['dns']) == {'domain'}, f'{name}: DNS schema')
         subnet=ipaddress.IPv4Network(n['subnet'], strict=True)
         segment = {'edge': 1, 'app': 2, 'db': 3, 'monitoring': 4, 'security': 5, 'game': 100}[name]
-        environment_octet = {'prod': 80, 'stg': 81, 'dev': 82}[environment]
-        bridge_offset = {'prod': 0, 'stg': 10, 'dev': 20}[environment]
+        environment_octet = {'prod': 80, 'dev': 82}[environment]
+        bridge_offset = {'prod': 0, 'dev': 20}[environment]
         require(str(subnet) == f'10.{environment_octet}.{segment}.0/24', f'{name}: environment subnet mismatch')
         require(n['bridge'] == f'vmbr{segment + bridge_offset}', f'{name}: environment bridge mismatch')
         gateway=ipaddress.IPv4Address(n['gateway'])
@@ -115,7 +118,7 @@ def validate(networks, reservations, resources, environment, draft=False):
 
 
 def validate_all(inventories):
-    """Check shared-PVE VMIDs, global MAC uniqueness, and L2/L3 isolation."""
+    """Check identifier and address uniqueness across both example inventories."""
     seen = {'vmid': {}, 'mac': {}, 'ipv4': {}, 'bridge': {}, 'subnet': {}}
     pending = []
     def unique(key, value, label):
@@ -125,7 +128,7 @@ def validate_all(inventories):
         normalized = value.lower() if isinstance(value,str) else value
         require(normalized not in seen[key], f'cross-environment duplicate {key}: {value}')
         seen[key][normalized] = label
-    for environment in ('dev','stg','prod'):
+    for environment in ENVIRONMENTS:
         directory = Path(inventories)/environment
         networks = load(directory/'ipam/networks.yml')
         hosts = load(directory/'ipam/reservations.yml')
@@ -144,7 +147,7 @@ def validate_all(inventories):
     return pending
 
 
-GROUPS=('caddy_servers','nextcloud_servers','imaginary_servers','onlyoffice_servers',
+GROUPS=('caddy_servers','nextcloud_servers','onlyoffice_servers',
         'mariadb_servers','valkey_servers','grafana_servers','zabbix_servers',
         'loki_servers','prometheus_servers','runner_servers')
 
@@ -159,7 +162,7 @@ def inventory(networks, reservations, resources, environment):
         for g in r['groups']: children[g]['hosts'][name]={'ansible_host':h['ipv4']}
         guests.append({**{k:v for k,v in r.items() if k!='groups'},'name':name,'vmid':h['vmid'],
                        'mac':h['mac'],'ip':h['ipv4'],'bridge':n['bridge'],'gateway':n['gateway'],'vlan':n['vlan']})
-    children['docker_hosts']={'children':{g:{} for g in ('imaginary_servers','onlyoffice_servers','grafana_servers','zabbix_servers','loki_servers','prometheus_servers')}}
+    children['docker_hosts']={'children':{g:{} for g in ('onlyoffice_servers','grafana_servers','zabbix_servers','loki_servers','prometheus_servers')}}
     children['managed_linux']={'children':{g:{} for g in GROUPS}}
     return {'all':{'vars':{'ansible_user':'ansible','pve_guests':guests},'children':children}}
 
